@@ -1,0 +1,5 @@
+Podfile.lock
+Pods
+tomatoes.xcworkspace
+*.xcodeproj/*
+!*.xcodeproj/*.pbxproj
