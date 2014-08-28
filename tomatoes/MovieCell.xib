@@ -33,6 +33,7 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
+            <gestureRecognizers/>
             <connections>
                 <outlet property="MovieTitleLabel" destination="ri9-yf-6Nn" id="dtF-rn-dQO"/>
                 <outlet property="posterView" destination="Vk1-0l-748" id="uKz-bk-7HJ"/>

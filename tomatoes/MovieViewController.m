@@ -9,6 +9,7 @@
 #import "MovieViewController.h"
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "MovieDetailsViewController.h"
 
 @interface MovieViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -69,7 +70,6 @@
     //NSLog(@"cell for row at index path: %d", indexPath.row);
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
-    
     NSDictionary *movie = self.movies[indexPath.row];
     
     cell.movieTitleLabel.text = movie[@"title"];
@@ -77,16 +77,24 @@
 
     NSURL *url = [NSURL URLWithString:movie[@"posters"][@"thumbnail"]];
 
-     NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url];
+    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url];
     //UIImage *placeholderImage = [UIImage imageNamed:@"placeholder"];
     [cell.posterView setImageWithURLRequest:imageRequest placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         cell.posterView.image = image;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"%@", error);
     }];
-    // another way to write lines 81-85
+    // another way to write lines 82-85
     // [cell.posterView setImageWithURL:([NSURL URLWithString:movie[@"posters"][@"thumbnail"]])];
     
     return cell;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+        [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    
+    MovieDetailsViewController *vc = [[MovieDetailsViewController alloc] init];
+    vc.movie = self.movies[indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end
